@@ -1,4 +1,6 @@
 const express = require('express')
+//ASYNC ERRORS
+require('express-async-errors')
 //CONFIG
 const { config } = require('./config/config')
 //DB
@@ -6,6 +8,8 @@ const connectDB = require('./db/connect')
 //ERRORS MIDLEWARES
 const notFound = require('./middleware/not-found')
 const errorHandler = require('./middleware/error-handler')
+//ROUTES
+const routerProducts = require('./routes/product')
 
 
 const PORT = config.port || 5005
@@ -24,6 +28,8 @@ app.get('/',(req, res) => {
         '<h1>Store API</H1><a href="/api/v1/products">Products route</a>'
     )
 })
+
+app.use('/api/v1/products',routerProducts)
 
 app.use(notFound)
 app.use(errorHandler)
